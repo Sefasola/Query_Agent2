@@ -1,22 +1,40 @@
-from pypdf import PdfReader
+from __future__ import annotations
 from pathlib import Path
-import json
-from .utils import clean_text
+from typing import Iterable, List
+from pypdf import PdfReader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from dataclasses import dataclass
 
-def pdf_to_pages(pdf_path: str) -> list[dict]:
-    reader = PdfReader(pdf_path)
-    pages = []
+@dataclass
+class PageChunk:
+    page: int
+    text: str
+    source: str  # filename
+
+def read_pdf_pages(pdf_path: str) -> List[PageChunk]:
+    p = Path(pdf_path)
+    reader = PdfReader(str(p))
+    out: List[PageChunk] = []
     for i, pg in enumerate(reader.pages):
-        raw = pg.extract_text() or ""
-        txt = clean_text(raw)
-        pages.append({"page": i+1, "text": txt})
-    return pages
+        txt = (pg.extract_text() or "").strip()
+        if not txt:
+            continue
+        out.append(PageChunk(page=i+1, text=txt, source=p.name))
+    return out
 
-def save_pages(pages: list[dict], out_json: str):
-    Path(out_json).parent.mkdir(parents=True, exist_ok=True)
-    with open(out_json, "w", encoding="utf-8") as f:
-        json.dump(pages, f, ensure_ascii=False, indent=2)
+def chunk_pages(pages: List[PageChunk], chunk_size=1200, chunk_overlap=120) -> List[PageChunk]:
+    splitter = RecursiveCharacterTextSplitter(
+        chunk_size=chunk_size,
+        chunk_overlap=chunk_overlap,
+        separators=["\n\n", "\n", " ", ""],
+    )
+    chunks: List[PageChunk] = []
+    for pg in pages:
+        parts = splitter.split_text(pg.text)
+        for part in parts:
+            chunks.append(PageChunk(page=pg.page, text=part, source=pg.source))
+    return chunks
 
-def load_pages(in_json: str) -> list[dict]:
-    with open(in_json, "r", encoding="utf-8") as f:
-        return json.load(f)
+def iter_pdfs(pdf_dir: str) -> Iterable[str]:
+    for p in Path(pdf_dir).glob("*.pdf"):
+        yield str(p)

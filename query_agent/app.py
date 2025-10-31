@@ -1,75 +1,63 @@
 import argparse
 import json
 from pathlib import Path
-from rich.prompt import Prompt
 from rich import print as rprint
 import pandas as pd
 
-from src.engine import QAPipeline
-from src.utils import unwrap_pred, normalize_for_compare
+from src.config import Settings
+from src.qa_agent import QueryAgent
 
-def run_interactive(pdf_path: str | None, top_k: int, prompt_yaml: str, prompt_key: str):
-    qa = QAPipeline(pdf_path=pdf_path, prompt_yaml_path=prompt_yaml, prompt_key=prompt_key)
-    rprint("[bold cyan]PDF QA (Qwen3-8B, Extractive)[/bold cyan]  Çıkış için boş Enter.")
-    while True:
-        q = Prompt.ask("Soru").strip()
-        if not q:
-            break
-        rprint(qa.ask(q, top_k=top_k))
-
-def run_build(pdf_path: str, prompt_yaml: str, prompt_key: str):
-    qa = QAPipeline(pdf_path=pdf_path, prompt_yaml_path=prompt_yaml, prompt_key=prompt_key)
-    qa.build_index()
+def cmd_build(pdf_dir: str, prompt_yaml: str):
+    cfg = Settings()
+    agent = QueryAgent(cfg, prompt_yaml)
+    agent.build_index(pdf_dir)
     rprint("[green]✅ İndeks oluşturuldu.[/green]")
 
-def run_batch(qa_json: str, pdf_path: str | None, out_json: str | None, out_xlsx: str | None, top_k: int, prompt_yaml: str, prompt_key: str):
-    qa = QAPipeline(pdf_path=pdf_path, prompt_yaml_path=prompt_yaml, prompt_key=prompt_key)
+def cmd_ask(question: str, k: int, prompt_yaml: str):
+    cfg = Settings()
+    agent = QueryAgent(cfg, prompt_yaml)
+    ans = agent.ask(question, k=k)
+    rprint(ans)
 
-    with open(qa_json, "r", encoding="utf-8") as f:
-        items = json.load(f)
+def cmd_batch(qa_json: str, out_json: str | None, out_xlsx: str | None, k: int, prompt_yaml: str):
+    cfg = Settings()
+    agent = QueryAgent(cfg, prompt_yaml)
 
+    items = json.loads(Path(qa_json).read_text(encoding="utf-8"))
     rows = []
-    n = len(items)
-    rprint(f"[cyan]Toplam {n} soru işlenecek...[/cyan]")
-
-    for idx, it in enumerate(items, 1):
-        q = it.get("query", "").strip()
-        expected = (it.get("expected", "") or "").strip()
+    for i, it in enumerate(items, 1):
+        q = it["query"]
+        expected = (it.get("expected") or "").strip()
         answerable = bool(it.get("answerable", True))
+        pred = agent.ask(q, k=k)
 
-        pred = qa.ask(q, top_k=top_k)                 # '<<<...>>>' ya da 'BELİRTİLMEMİŞ'
-        pred_unwrapped = unwrap_pred(pred)
-
+        # Değerlendirme:
         if not answerable:
-            is_correct = (pred_unwrapped == "BELİRTİLMEMİŞ")
+            is_correct = (pred == "BELİRTİLMEMİŞ")
         else:
-            is_correct = (
-                pred_unwrapped != "BELİRTİLMEMİŞ"
-                and normalize_for_compare(pred_unwrapped) == normalize_for_compare(expected)
-            )
+            # Basit eşleşme (noktalama farkına hassas; dilersen normalize ederek kıyasla)
+            is_correct = (pred.strip().rstrip(" .;:") == expected.strip().rstrip(" .;:"))
 
         rows.append({
-            "idx": idx,
+            "idx": i,
             "query": q,
             "expected": expected,
             "answerable": answerable,
             "predicted": pred,
-            "pred_unwrapped": pred_unwrapped,
             "is_correct": bool(is_correct),
         })
 
         tag = "✅" if is_correct else "❌"
-        rprint(f"[white]{idx:02d}[/white] {tag}  [bold]Q:[/bold] {q}")
+        rprint(f"[white]{i:02d}[/white] {tag} [bold]Q:[/bold] {q}")
         rprint(f"    [dim]Pred:[/dim] {pred}")
 
     if out_json:
         Path(out_json).parent.mkdir(parents=True, exist_ok=True)
-        with open(out_json, "w", encoding="utf-8") as f:
-            json.dump(rows, f, ensure_ascii=False, indent=2)
+        Path(out_json).write_text(json.dumps(rows, ensure_ascii=False, indent=2), encoding="utf-8")
         rprint(f"[green]JSON kaydedildi →[/green] {out_json}")
 
     if out_xlsx:
-        df = pd.DataFrame(rows, columns=["idx","query","expected","answerable","predicted","pred_unwrapped","is_correct"])
+        df = pd.DataFrame(rows, columns=["idx","query","expected","answerable","predicted","is_correct"])
         Path(out_xlsx).parent.mkdir(parents=True, exist_ok=True)
         df.to_excel(out_xlsx, index=False)
         rprint(f"[green]Excel kaydedildi →[/green] {out_xlsx}")
@@ -80,45 +68,32 @@ def run_batch(qa_json: str, pdf_path: str | None, out_json: str | None, out_xlsx
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--pdf", type=str, help="PDF yolu (ilk kurulumda veya değiştiğinde verin)")
-    ap.add_argument("--build", action="store_true", help="PDF'ten indeks oluştur")
-    ap.add_argument("--ask", type=str, help="Tek bir soru sor ve çık")
-    ap.add_argument("--topk", type=int, default=3, help="Kaç sayfayı sorgula (varsayılan 3)")
+    sub = ap.add_subparsers(dest="cmd", required=True)
 
-    # JSON batch modu
-    ap.add_argument("--qa_json", type=str, help="Soru listesi JSON dosyası")
-    ap.add_argument("--out_json", type=str, help="Çıktı JSON dosya yolu")
-    ap.add_argument("--out_xlsx", type=str, help="Çıktı Excel dosya yolu")
+    b = sub.add_parser("build", help="PDF klasörünü indeksle")
+    b.add_argument("--pdf_dir", required=True, help="PDF klasörü (ör. data/pdfs)")
+    b.add_argument("--prompts", default="prompts/prompts.yaml", help="Prompt YAML yolu")
 
-    # Prompt YAML
-    ap.add_argument("--prompt_yaml", type=str, default="prompts/prompts.yaml", help="Prompt YAML dosya yolu")
-    ap.add_argument("--prompt_key", type=str, default="extractive_tr.system", help="Prompt dot-key (ör. extractive_tr.system)")
+    a = sub.add_parser("ask", help="Soru sor")
+    a.add_argument("--q", required=True, help="Soru metni")
+    a.add_argument("--k", type=int, default=5, help="Kaç belge getirilsin (top_k)")
+    a.add_argument("--prompts", default="prompts/prompts.yaml", help="Prompt YAML yolu")
+
+    bt = sub.add_parser("batch", help="JSON soru seti çalıştır")
+    bt.add_argument("--qa_json", required=True, help="Soru listesi JSON")
+    bt.add_argument("--out_json", help="Çıktı JSON")
+    bt.add_argument("--out_xlsx", help="Çıktı Excel")
+    bt.add_argument("--k", type=int, default=5, help="Kaç belge getirilsin (top_k)")
+    bt.add_argument("--prompts", default="prompts/prompts.yaml", help="Prompt YAML yolu")
 
     args = ap.parse_args()
 
-    if args.build:
-        if not args.pdf:
-            raise SystemExit("--build için --pdf zorunlu")
-        return run_build(args.pdf, args.prompt_yaml, args.prompt_key)
-
-    if args.qa_json:
-        return run_batch(
-            qa_json=args.qa_json,
-            pdf_path=args.pdf,
-            out_json=args.out_json,
-            out_xlsx=args.out_xlsx,
-            top_k=args.topk,
-            prompt_yaml=args.prompt_yaml,
-            prompt_key=args.prompt_key,
-        )
-
-    if args.ask:
-        qa = QAPipeline(pdf_path=args.pdf, prompt_yaml_path=args.prompt_yaml, prompt_key=args.prompt_key)
-        r = qa.ask(args.ask, top_k=args.topk)
-        rprint(r)
-        return
-
-    return run_interactive(pdf_path=args.pdf, top_k=args.topk, prompt_yaml=args.prompt_yaml, prompt_key=args.prompt_key)
+    if args.cmd == "build":
+        return cmd_build(args.pdf_dir, args.prompts)
+    if args.cmd == "ask":
+        return cmd_ask(args.q, args.k, args.prompts)
+    if args.cmd == "batch":
+        return cmd_batch(args.qa_json, args.out_json, args.out_xlsx, args.k, args.prompts)
 
 if __name__ == "__main__":
     main()
