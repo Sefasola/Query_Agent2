@@ -1,0 +1,12 @@
+transformers>=4.44.0
+torch>=2.3.0
+sentence-transformers>=3.0.0
+numpy>=1.26
+pypdf>=4.2.0
+rich>=13.7
+python-dotenv>=1.0.1
+pandas>=2.2.2
+openpyxl>=3.1.2
+PyYAML>=6.0.1
+# Opsiyonel (GPU 4-bit quant)
+bitsandbytes>=0.43.0

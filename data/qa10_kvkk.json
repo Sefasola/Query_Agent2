@@ -1,0 +1,253 @@
+[
+    {
+    "query": "KVKK’nın (6698) temel ortaya çıkış gerekçesi nedir?",
+    "expected": "Dijital çağda kişisel verilerin yaygın işlenmesiyle doğan mahremiyet ve istismar riskleri arasında meşru/makul dengeyi kurmak.",
+    "answerable": true
+    },
+    {
+    "query": "6698 sayılı KVKK ne zaman yürürlüğe girmiştir?",
+    "expected": "7 Nisan 2016.",
+    "answerable": true
+    },
+    {
+    "query": "KVKK’nın “Amaç” maddesine göre ana amaç nedir?",
+    "expected": "Kişisel verilerin işlenmesinde başta özel hayatın gizliliği olmak üzere temel hak ve özgürlükleri korumak; veri işleyenlerin yükümlülükleri ile uyacakları usul ve esasları düzenlemek.",
+    "answerable": true
+    },
+    {
+    "query": "Anayasa m.20’ye 2010’da eklenen fıkraya göre kişisel veriler hangi şartlarda işlenebilir?",
+    "expected": "Kanunda öngörülen hallerde veya kişinin açık rızasıyla.",
+    "answerable": true
+    },
+    {
+    "query": "Kanuna göre kişisel veriler üzerinde bireylerin hangi hakları vardır?",
+    "expected": "Bilgilendirilme, erişim, düzeltme/silme talebi ve amaca uygun kullanılıp kullanılmadığını öğrenme.",
+    "answerable": true
+    },
+    {
+    "query": "KVKK hangi kişi ve kurumlara uygulanır?",
+    "expected": "Kişisel verileri işlenen gerçek kişiler ile bu verileri otomatik veya belirli bir veri kayıt sistemi kapsamında otomatik olmayan yollarla işleyen gerçek ve tüzel kişiler hakkında.",
+    "answerable": true
+    },
+    {
+    "query": "KVKK kapsamındaki kişisel veriler kime ait olmalıdır?",
+    "expected": "Gerçek kişilere ait olmalıdır; tüzel kişilerin verileri kural olarak kapsam dışındadır. (Ancak tüzel veri gerçek kişiyi belirlemeye elverişliyse kapsamda sayılabilir.)",
+    "answerable": true
+    },
+    {
+    "query": "“Veri kayıt sistemi” neyi ifade eder?",
+    "expected": "Kişisel verilerin belirli kriterlere göre yapılandırılarak işlendiği kayıt sistemini.",
+    "answerable": true
+    },
+    {
+    "query": "Otomatik olmayan yollarla işlenen veriler KVKK kapsamına ne zaman girer?",
+    "expected": "Eğer herhangi bir veri kayıt sisteminin parçası ise.",
+    "answerable": true
+    },
+    {
+    "query": "Kişi adlarının rastgele bir kağıtta bulunması KVKK kapsamına girer mi?",
+    "expected": "Hayır. Ancak sistematik bir deftere kaydedilirse kapsamına girer.",
+    "answerable": true
+    },
+    {
+    "query": "108 sayılı Avrupa Konseyi Sözleşmesi bağlamında “otomatik işleme” hangi işlemleri kapsar?",
+    "expected": "Verilerin kaydı, mantıksal/aritmetik işlem, değiştirme, silme, geri elde etme veya dağıtma gibi süreçleri.",
+    "answerable": true
+    },
+    {
+    "query": "Kamu kurumları KVKK’dan muaf mıdır?",
+    "expected": "Hayır. Kanun kamu/özel ayrımı yapmadan tüm kurum ve kuruluşlara uygulanır.",
+    "answerable": true
+    },
+    {
+    "query": "Tüzel kişilere ait veriler her durumda KVKK kapsamında mıdır?",
+    "expected": "Kural olarak evet; ancak tüzel veriden gerçek kişi belirlenebiliyorsa kapsam dahilinde olabilir.",
+    "answerable": true
+    },
+    {
+    "query": "KVKK’nın kişisel verilerin sınırsız ve amaç dışı toplanmasına yaklaşımı nedir?",
+    "expected": "Sınırsız, gelişigüzel, amaç dışı veya kötüye kullanımı önlemeyi hedefler.",
+    "answerable": true
+    },
+    {
+    "query": "Kanun, kişisel verilerin işlenmesine ilişkin neyi hedefler?",
+    "expected": "Denetim mekanizmaları kurarak hukuka aykırı işlemeyi engellemeyi.",
+    "answerable": true
+    },
+    {
+    "query": "Kanunun kapsamına girmeyen durumlar hangi maddede toplanır?",
+    "expected": "Madde 28 (tam ve kısmi istisnalar).",
+    "answerable": true
+    },
+    {
+    "query": "“Tam istisna” ne anlama gelir?",
+    "expected": "Belirtilen hallerde Kanun hiçbir şekilde uygulanmaz.",
+    "answerable": true
+    },
+    {
+    "query": "Aile içi faaliyetler kapsamında kişisel verilerin işlenmesi KVKK’ya tabi midir?",
+    "expected": "Hayır, üçüncü kişilere verilmemek ve veri güvenliğine uyulmak şartıyla kapsam dışıdır.",
+    "answerable": true
+    },
+    {
+    "query": "Aile içi fotoğrafların sosyal medyada aleni paylaşılması istisna kapsamında mıdır?",
+    "expected": "Hayır. Alenileştirme yapıldığında istisna uygulanmaz.",
+    "answerable": true
+    },
+    {
+    "query": "Resmi istatistik amacıyla anonim hale getirilmiş veriler KVKK’ya tabi midir?",
+    "expected": "Hayır, anonimleştirilmiş veriler kapsam dışıdır.",
+    "answerable": true
+    },
+    {
+    "query": "Kişisel veriler sanat, tarih, edebiyat veya bilimsel amaçlarla ne zaman işlenebilir?",
+    "expected": "Milli güvenlik, kamu düzeni, kişilik hakları vb. ihlal edilmemek ve suç oluşturmamak kaydıyla.",
+    "answerable": true
+    },
+    {
+    "query": "Milli güvenlik/kamu güvenliği için yetkili kurumların yürüttüğü istihbari faaliyetlerde işlenen veriler KVKK kapsamına girer mi?",
+    "expected": "Hayır. Bu veriler kapsam dışıdır.",
+    "answerable": true
+    },
+    {
+    "query": "Soruşturma/kovuşturma/yargılama/infaz süreçlerinde yargı makamlarının işlediği veriler için KVKK uygulanır mı?",
+    "expected": "Hayır. Bu hallerde Kanun uygulanmaz.",
+    "answerable": true
+    },
+    {
+    "query": "“Kısmi istisna” hangi maddede ve nasıl düzenlenir?",
+    "expected": "Madde 28/2; 10, 11 ve 16. maddelerin belirli hallerde uygulanmamasını öngörür.",
+    "answerable": true
+    },
+    {
+    "query": "Suçun önlenmesi veya soruşturması için gerekli veri işleme halinde hangi hükümler uygulanmaz?",
+    "expected": "10. madde (aydınlatma), 11. madde (ilgili kişinin hakları – zarar tazmini hariç) ve 16. madde (VERBİS).",
+    "answerable": true
+    },
+    {
+    "query": "İlgili kişinin kendisi tarafından alenileştirilmiş kişisel veriler işlendiğinde ne olur?",
+    "expected": "Yukarıdaki üç hüküm (10, 11, 16) uygulanmayabilir (kısmi istisna).",
+    "answerable": true
+    },
+    {
+    "query": "Denetleme/düzenleme görevleri için kamu kurumu/meslek kuruluşlarının veri işlemesi kısmi istisna mıdır?",
+    "expected": "Evet. 10, 11 ve 16. maddeler uygulanmayabilir.",
+    "answerable": true
+    },
+    {
+    "query": "Devletin bütçe, vergi ve mali konulardaki ekonomik çıkarlarının korunması için veri işleme kısmi istisna mıdır?",
+    "expected": "Evet. Belirtilen üç hüküm uygulanmayabilir.",
+    "answerable": true
+    },
+    {
+    "query": "Kısmi istisnaların uygulanabilmesi için hangi ilkelere uyulmalıdır?",
+    "expected": "Kanunun amacına, temel ilkelerine uygun ve orantılı olmalıdır.",
+    "answerable": true
+    },
+    {
+    "query": "KVKK’nın zaman bakımından uygulanması geçiş süresi nasıldır?",
+    "expected": "Kanunun yayımı tarihinden önce işlenmiş veriler 2 yıl içinde uygun hale getirilmelidir.",
+    "answerable": true
+    },
+    {
+    "query": "Yayım tarihinden önce alınmış rızalar ne kadar süreyle geçerli sayılır?",
+    "expected": "1 yıl içinde aksi yönde irade açıklanmazsa Kanuna uygun kabul edilir.",
+    "answerable": true
+    },
+    {
+    "query": "Otomatik olmayan yollarla işlenen ve veri kayıt sisteminin parçası olmayan veriler KVKK kapsamına girer mi?",
+    "expected": "Hayır. (Ancak TCK bakımından suç teşkil edebilecek ihlaller ayrı konudur.)",
+    "answerable": true
+    },
+    {
+    "query": "KVKK yalnızca gerçek kişilerin verilerini mi korur?",
+    "expected": "Evet; gerçek kişilere ait kişisel veriler koruma kapsamındadır.",
+    "answerable": true
+    },
+    {
+    "query": "Kanun, kişisel verilerin işlenmesini hangi çerçevede “disiplin altına” almayı amaçlar?",
+    "expected": "Usul-esasları koyarak ve denetim mekanizmalarıyla hukuka aykırı işlenmeyi önleyerek.",
+    "answerable": true
+    },
+    {
+    "query": "Kanun, “mahremiyet hakkı” ve “bilgi güvenliği hakkı” bakımından neyi hedefler?",
+    "expected": "Bu iki hakkın korunmasını ve veri işleyenlerin yükümlülüklerinin düzenlenmesini.",
+    "answerable": true
+    },
+    {
+    "query": "KVKK özel sektör ve kamu için farklı kurallar mı getirir?",
+    "expected": "Hayır. Ayrım yapmadan aynı usul ve esasları öngörür.",
+    "answerable": true
+    },
+    {
+    "query": "“Anonim hale getirilmek suretiyle işleme” ifadesi hangi iki şekilde anlaşılabilir?",
+    "expected": "Başlangıçtan anonim verinin kullanımı veya kişisel verinin toplanıp sonradan anonimleştirilmesi.",
+    "answerable": true
+    },
+    {
+    "query": "Sonradan anonimleştirilen verilerde ilk toplama aşaması KVKK kapsamına girer mi?",
+    "expected": "Evet, toplama faaliyeti KVKK kapsamındadır; anonimleştirme sonrası veri kapsam dışına çıkar.",
+    "answerable": true
+    },
+    {
+    "query": "İfade özgürlüğü kapsamında veri işleme hangi şartlarda kapsam dışıdır?",
+    "expected": "Milli güvenlik, kamu düzeni, kişilik hakları, özel hayatın gizliliği ihlal edilmemeli ve suç teşkil etmemelidir.",
+    "answerable": true
+    },
+    {
+    "query": "KVKK’ya göre kapsam dışı veya istisna hallerinde dahi hangi ilkesel sınırlar gözetilmelidir?",
+    "expected": "Amaçla bağlantı, orantılılık ve temel hak/özgürlüklere saygı.",
+    "answerable": true
+    },
+    {
+    "query": "Bir şirkette KVKK uyumuna başlarken ilk 3 adım ne olmalı? (PDF dışı)",
+    "expected": "Envanter çıkarma (veri işleme faaliyetleri), hukuki-teknik boşluk analizi, yol haritası & politika/prosedür oluşturma.",
+    "answerable": false
+    },  
+    {
+    "query": "KVKK’daki “açık rıza” yerine hangi meşru işleme şartları tercih edilebilir? (PDF dışı)",
+    "expected": "Sözleşmenin kurulması/ifası için zorunluluk, hukuki yükümlülük, meşru menfaat, veri sahibinin alenileştirmesi, kanunda açıkça öngörülme vb.",
+    "answerable": false
+    },
+    {
+    "query": "KVKK ile GDPR arasındaki iki temel benzerlik nedir? (PDF dışı)",
+    "expected": "Haklar kataloğu (erişim, düzeltme, silme vb.) ve veri işleme ilkeleri (amaçla sınırlılık, veri minimizasyonu vb.).",
+    "answerable": false
+    },
+    {
+    "query": "KVKK’ya uygun aydınlatma metninde asgari hangi bilgiler yer almalı? (PDF dışı)",
+    "expected": "Veri sorumlusu kimliği, işleme amaçları, aktarımlar, yöntemi/ hukuki sebep, haklar, saklama süresi ve başvuru kanalları.",
+    "answerable": false
+    },
+    {
+    "query": "Bir e-ticaret sitesinde log kayıtlarının saklama süresini ne belirler? (PDF dışı)",
+    "expected": "İlgili mevzuat (ör. yükümlülük ve zamanaşımı süreleri), amaç ve gerekli olan en az süre (“gerektiği kadar sakla” ilkesi).",
+    "answerable": false
+    },
+    {
+    "query": "“Veri minimizasyonu” pratikte nasıl sağlanır? (PDF dışı)",
+    "expected": "Gerekli olmayan alanların toplanmaması, zorunlu/opsiyonel ayrımı, maskeleme/anonimleştirme, periyodik imha.",
+    "answerable": false
+    },
+    {
+    "query": "Bir ihlal bildiriminde asgari hangi bilgiler paylaşılmalı? (PDF dışı)",
+    "expected": "İhlalin niteliği/kapsamı, etkilenen kişi/ veri kategorileri, muhtemel sonuçlar, alınan önlemler ve başvuru kanalları.",
+    "answerable": false
+    },
+    {
+    "query": "Çalışanların kişisel cihazlarında (BYOD) KVKK uyumu için iki kritik kontrol nedir? (PDF dışı)",
+    "expected": "MDM/şifreleme ve erişim yetkisi-loglama; açık politika ve onay süreçleri.",
+    "answerable": false
+    },
+    {
+    "query": "“Meşru menfaat” değerlendirmesi nasıl yapılır? (PDF dışı)",
+    "expected": "Amaç meşru mu? İşleme gerekli mi? Kişinin hak/özgürlüklerine üstün gelmiyor mu? (denge testi + ek koruyucu önlemler).",
+    "answerable": false
+    },
+    {
+    "query": "Tedarikçiyle veri işleyen sözleşmesinde (DPA) hangi üç madde kritik? (PDF dışı)",
+    "expected": "Amaçla bağlılık & talimatlara uyum, güvenlik önlemleri/denetim hakkı, alt işleyen şartları & ihlal bildirim yükümlülüğü.",
+    "answerable": false
+    }
+    ]
+    

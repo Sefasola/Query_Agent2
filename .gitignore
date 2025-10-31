@@ -1,0 +1,18 @@
+# sanal ortam
+.venv/
+venv/
+
+# py cache
+__pycache__/
+*.pyc
+
+# çalışma çıktıları / büyük dosyalar
+storage/
+outputs/
+
+# IDE/OS
+.vscode/
+.idea/
+.DS_Store
+
+
