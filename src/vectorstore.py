@@ -1,16 +1,16 @@
 from __future__ import annotations
 from typing import List, Tuple
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 from langchain_core.documents import Document
 
 def build_chroma(docs: List[Document], embeddings, persist_dir: str) -> Chroma:
+    # Not: langchain-chroma 0.1.x ile persist() yok; persist_directory yeterli.
     vs = Chroma.from_documents(
         documents=docs,
         embedding=embeddings,
         persist_directory=persist_dir,
         collection_name="qa_multi_pdf",
     )
-    vs.persist()
     return vs
 
 def load_chroma(embeddings, persist_dir: str) -> Chroma:
@@ -30,7 +30,6 @@ def to_documents(chunks) -> List[Document]:
     return docs
 
 def format_context(docs: List[Document], max_chars: int = 6000) -> str:
-    """Kaynak + sayfa etiketleriyle kısa bağlam birleştirme."""
     parts = []
     size = 0
     for d in docs:
@@ -43,7 +42,6 @@ def format_context(docs: List[Document], max_chars: int = 6000) -> str:
     return "\n".join(parts)
 
 def best_scores_info(results_with_scores: List[Tuple[Document, float]]) -> Tuple[float, float]:
-    """top1 ve top5 (veya mevcut son) skorları döndürür."""
     if not results_with_scores:
         return 0.0, 0.0
     scores = [float(s) for _, s in results_with_scores]

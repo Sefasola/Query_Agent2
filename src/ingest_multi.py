@@ -2,7 +2,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Iterable, List
 from pypdf import PdfReader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from dataclasses import dataclass
 
 @dataclass
