@@ -13,7 +13,7 @@ from .schemas import InputSchema, OutputSchema, Reference  # <<< eklendi
 
 
 class QueryAgent:
-    def __init__(self, settings: Settings, prompt_yaml: str = "prompts/prompts.yaml"):
+    def __init__(self, settings: Settings, prompt_yaml: str = "prompts/query_prompt.yaml"):
         self.cfg = settings
         self.prompt_yaml = prompt_yaml
         self.emb = build_embeddings(self.cfg.embed_model)
