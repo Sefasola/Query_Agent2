@@ -26,6 +26,7 @@ class QueryAgent:
             pages = read_pdf_pages(pdf)
             chunks = chunk_pages(pages, self.cfg.chunk_size, self.cfg.chunk_overlap)
             all_chunks.extend(chunks)
+
         docs = to_documents(all_chunks)
         build_chroma(docs, self.emb, self.cfg.chroma_dir)
 
@@ -49,6 +50,7 @@ class QueryAgent:
             search_kwargs={"k": k}
         )
         docs: List[Document] = retriever.invoke(question)
+
         if not docs:
             return OutputSchema(
                 query=question,
@@ -76,9 +78,12 @@ class QueryAgent:
         # 2) Verifier: bağlamda destek var mı?
         ver_sys = get_prompt(self.prompt_yaml, "verify_supported", "system")
         ver_usr = get_prompt(self.prompt_yaml, "verify_supported", "user_template").format(
-            question=question, answer=raw, context=context
+            question=question,
+            answer=raw,
+            context=context
         )
         verdict = self.llm.chat(ver_sys, ver_usr).strip().upper()
+
         if verdict != "YES":
             if normalize_for_compare(raw) not in normalize_for_compare(context):
                 return OutputSchema(
